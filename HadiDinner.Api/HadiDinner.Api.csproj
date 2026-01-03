@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>7a6754d3-da13-4229-a2c0-2f4327acdc95</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HadiDinner.Contracts\HadiDinner.Contracts.csproj" />
+    <ProjectReference Include="..\HadiDinner.Application\HadiDinner.Application.csproj" />
+    <ProjectReference Include="..\HadiDinner.Infrastructure\HadiDinner.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

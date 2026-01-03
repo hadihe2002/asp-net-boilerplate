@@ -1,0 +1,21 @@
+
+Post http://localhost:5127/auth/register
+Content-Type: application/json
+
+{
+    "firstName": "Hadi",
+    "lastName": "Hedayati",
+    "email": "hadihe2002@gmail.com",
+    "password": "Mypassword"
+}
+
+
+###
+
+Post http://localhost:5127/auth/login
+Content-Type: application/json
+
+{
+    "email": "hadihe2002@gmail.com",
+    "password": "Mypassword"
+}
