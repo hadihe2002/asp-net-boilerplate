@@ -19,3 +19,8 @@ Content-Type: application/json
     "email": "hadihe2002@gmail.com",
     "password": "Mypassword"
 }
+
+###
+
+Get http://localhost:5127/dinners
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MTQ2NDY0Zi01NmFjLTQ3MjktYTk5Ni0xZjc3M2JhYWEzODYiLCJnaXZlbl9uYW1lIjoiSGFkaSIsImZhbWlseV9uYW1lIjoiSGVkYXlhdGkiLCJqdGkiOiJlZTg4YzNlYy05MTZiLTQwNzQtOWQ1Zi1hMTViY2JmODk3MzYiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBS2JhciIsImV4cCI6MTc2OTM4MDkzMSwiaXNzIjoiSGFkaURpbm5lciIsImF1ZCI6IkhhZGlEaW5uZXIifQ.R5ZNkw8ZAFQEK0UebMBM1EKTElOE0j274Z1IMxiJlvY

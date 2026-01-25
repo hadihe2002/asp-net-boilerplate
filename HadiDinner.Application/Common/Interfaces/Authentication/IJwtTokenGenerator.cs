@@ -1,4 +1,4 @@
-using HadiDinner.Domain.Entities;
+using HadiDinner.Domain.User;
 
 namespace HadiDinner.Application.Common.Interfaces.Authentication;
 

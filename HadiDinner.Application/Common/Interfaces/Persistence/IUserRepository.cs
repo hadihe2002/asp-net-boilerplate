@@ -1,6 +1,6 @@
 namespace HadiDinner.Application.Common.Interfaces.Persistence;
 
-using HadiDinner.Domain.Entities;
+using HadiDinner.Domain.User;
 
 public interface IUserRepository
 {

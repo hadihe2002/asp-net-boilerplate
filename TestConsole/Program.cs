@@ -17,6 +17,7 @@
 
 using System.Numerics;
 using System.Text.Json;
+using HadiDinner.Domain.Common.Models;
 
 namespace TestConsole;
 
@@ -67,11 +68,16 @@ class Program
         //     public static int Mul(int a, int b) => a * b;
         // // Multiply a = Mul;
 
-        static int Add(int x, int y)
-        {
-            return x + y;
-        }
-        Console.WriteLine(Add(2, 3));
+        // static int Add(int x, int y)
+        // {
+        //     return x + y;
+        // }
+        // Console.WriteLine(Add(2, 3));
+
+        Price price1 = new(12, "Hello");
+        Price price2 = new(12, "Hello");
+
+        _ = price1 == price2;
     }
 
     public static void ClassAndStructs()

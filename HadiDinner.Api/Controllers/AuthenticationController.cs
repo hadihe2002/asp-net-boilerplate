@@ -1,51 +1,47 @@
-using HadiDinner.Api.Filters;
-using HadiDinner.Application.Services.Authentication;
+using ErrorOr;
+using HadiDinner.Application.Authentication.Commands.Register;
+using HadiDinner.Application.Authentication.Common;
+using HadiDinner.Application.Authentication.Queries.Login;
 using HadiDinner.Contracts.Authentication;
+using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HadiDinner.Api.Controllers;
 
-[ApiController]
 [Route("auth")]
-public class AuthenticationController : ControllerBase
+public class AuthenticationController : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
+    private readonly ISender _mediator;
+    private readonly IMapper _mapper;
 
-    public AuthenticationController(IAuthenticationService authenticationService)
+    public AuthenticationController(ISender mediator, IMapper mapper)
     {
-        _authenticationService = authenticationService;
+        _mediator = mediator;
+        _mapper = mapper;
     }
 
     [HttpPost("register")]
-    public IActionResult Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        var result = _authenticationService.Register(
-            request.FirstName,
-            request.LastName,
-            request.Email,
-            request.Password
+        var command = _mapper.Map<RegisterCommand>(request);
+        ErrorOr<AuthenticationResult> result = await _mediator.Send(command);
+
+        return result.Match(
+            authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
+            errors => Problem(errors)
         );
-        var response = new AuthenticationResponse(
-            result.User.Id,
-            result.User.FirstName,
-            result.User.LastName,
-            result.User.Email,
-            result.Token
-        );
-        return Ok(response);
     }
 
     [HttpPost("login")]
-    public IActionResult Login(LoginRequest request)
+    public async Task<IActionResult> Login(LoginRequest request)
     {
-        var result = _authenticationService.Login(request.Email, request.Password);
-        var response = new AuthenticationResponse(
-            result.User.Id,
-            result.User.FirstName,
-            result.User.LastName,
-            result.User.Email,
-            result.Token
+        var query = _mapper.Map<LoginQuery>(request);
+        ErrorOr<AuthenticationResult> result = await _mediator.Send(query);
+
+        return result.Match(
+            (authResult) => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
+            errors => Problem(errors)
         );
-        return Ok(response);
     }
 }

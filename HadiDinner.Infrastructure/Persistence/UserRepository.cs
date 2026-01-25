@@ -1,7 +1,7 @@
 namespace HadiDinner.Infrastructure.Persistence;
 
 using HadiDinner.Application.Common.Interfaces.Persistence;
-using HadiDinner.Domain.Entities;
+using HadiDinner.Domain.User;
 
 public class UserRepository : IUserRepository
 {

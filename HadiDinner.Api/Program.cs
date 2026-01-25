@@ -1,22 +1,20 @@
-using HadiDinner.Api.Common.Errors;
+using HadiDinner.Api;
 using HadiDinner.Application;
 using HadiDinner.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApplication().AddInfrastructure(builder.Configuration);
-
-// builder.Services.AddControllers((options) => options.Filters.Add<ErrorHandlingFilterAttribute>());
-builder.Services.AddControllers();
-builder.Services.AddSingleton<ProblemDetailsFactory, HadiDinnerProblemDetailsFactory>();
+builder.Services.AddPresentation().AddApplication().AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
+// builder.Services.AddControllers((options) => options.Filters.Add<ErrorHandlingFilterAttribute>());
 // app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseExceptionHandler("/error");
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

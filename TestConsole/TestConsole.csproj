@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HadiDinner.Infrastructure\HadiDinner.Infrastructure.csproj" />
+    <ProjectReference Include="..\HadiDinner.Domain\HadiDinner.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
