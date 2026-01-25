@@ -7,7 +7,7 @@ namespace HadiDinner.Api.Controllers;
 public class DinnersController : ApiController
 {
     [HttpGet]
-    [Authorize(Roles = "AKbar")]
+    [Authorize(Roles = "Role")]
     public IActionResult ListDinners()
     {
         return Ok(Array.Empty<string>());

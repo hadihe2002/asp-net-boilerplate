@@ -31,7 +31,7 @@ public class RegisterHandler : IRequestHandler<RegisterCommand, ErrorOr<Authenti
 
         ErrorOr<User> userResult = User.Create(firstName, lastName, email, password);
         if (userResult.IsError)
-            return userResult.FirstError;
+            return userResult.Errors;
         var user = userResult.Value;
 
         _userRepository.Add(user);

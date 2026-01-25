@@ -81,8 +81,6 @@ public class User : AggregateRoot<UserId>
 
     public bool VerifyPassword(string password)
     {
-        Console.WriteLine(password);
-        Console.WriteLine(_passwordHash);
         return VerifyPasswordHash(password, _passwordHash);
     }
 
