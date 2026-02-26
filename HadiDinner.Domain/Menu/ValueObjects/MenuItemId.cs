@@ -4,7 +4,9 @@ namespace HadiDinner.Domain.Menu.ValueObjects;
 
 public sealed class MenuItemId : ValueObject
 {
-    public Guid Value { get; }
+    public Guid Value { get; private set; }
+
+    private MenuItemId() { }
 
     private MenuItemId(Guid menuItemId)
     {
@@ -14,6 +16,11 @@ public sealed class MenuItemId : ValueObject
     public static MenuItemId CreateUnique()
     {
         return new(Guid.NewGuid());
+    }
+
+    public static MenuItemId Create(Guid menuItemId)
+    {
+        return new(menuItemId);
     }
 
     public override IEnumerable<object> GetEqualityComponents()

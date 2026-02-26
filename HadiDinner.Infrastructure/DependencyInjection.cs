@@ -4,8 +4,10 @@ using HadiDinner.Application.Common.Interfaces.Persistence;
 using HadiDinner.Application.Common.Interfaces.Services;
 using HadiDinner.Infrastructure.Authentication;
 using HadiDinner.Infrastructure.Persistence;
+using HadiDinner.Infrastructure.Persistence.Repositories;
 using HadiDinner.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -20,9 +22,26 @@ public static class DependencyInjection
         ConfigurationManager configuration
     )
     {
-        services.AddAuth(configuration);
+        services.AddAuth(configuration).AddPersistence(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddPersistence(
+        this IServiceCollection services,
+        ConfigurationManager configuration
+    )
+    {
+        var databaseSettings = new DatabaseSettings();
+        configuration.Bind(DatabaseSettings.SectionName, databaseSettings);
+
+        services.AddDbContext<HadiDinnerDbContext>(
+            options => options.UseSqlServer(databaseSettings.ConnectionString)
+        );
+
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IMenuRepository, MenuRepository>();
 
         return services;
     }

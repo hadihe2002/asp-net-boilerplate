@@ -14,6 +14,8 @@ public class User : AggregateRoot<UserId>
     private const int Iterations = 100000;
     private readonly string _passwordHash;
 
+    public string Password => _passwordHash;
+
     public string FirstName { get; } = null!;
 
     public string LastName { get; } = null!;
@@ -23,6 +25,8 @@ public class User : AggregateRoot<UserId>
     public DateTime CreatedDateTime { get; private set; }
 
     public DateTime UpdatedDateTime { get; private set; }
+
+    private User() { }
 
     private User(
         UserId id,

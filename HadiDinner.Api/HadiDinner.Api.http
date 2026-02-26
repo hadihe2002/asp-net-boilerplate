@@ -23,4 +23,39 @@ Content-Type: application/json
 ###
 
 Get http://localhost:5127/dinners
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MTQ2NDY0Zi01NmFjLTQ3MjktYTk5Ni0xZjc3M2JhYWEzODYiLCJnaXZlbl9uYW1lIjoiSGFkaSIsImZhbWlseV9uYW1lIjoiSGVkYXlhdGkiLCJqdGkiOiJlZTg4YzNlYy05MTZiLTQwNzQtOWQ1Zi1hMTViY2JmODk3MzYiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBS2JhciIsImV4cCI6MTc2OTM4MDkzMSwiaXNzIjoiSGFkaURpbm5lciIsImF1ZCI6IkhhZGlEaW5uZXIifQ.R5ZNkw8ZAFQEK0UebMBM1EKTElOE0j274Z1IMxiJlvY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMmI4Yjg4Mi0wMjkxLTQ3MjEtOTJmZC1kMmRlOTNiYThhNjEiLCJnaXZlbl9uYW1lIjoiSGFkaSIsImZhbWlseV9uYW1lIjoiSGVkYXlhdGkiLCJqdGkiOiJhZDE5YTY4ZS1jNjhhLTRhYTEtOTZmZi1mZGUxMDkxZWI3OTMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJSb2xlIiwiZXhwIjoxNzcwNDcwMTY0LCJpc3MiOiJIYWRpRGlubmVyIiwiYXVkIjoiSGFkaURpbm5lciJ9.atsKcS0dKR4gU6HkD409gVZwB488Ft1SfOOTXh-b4HQ
+
+
+###
+
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMmI4Yjg4Mi0wMjkxLTQ3MjEtOTJmZC1kMmRlOTNiYThhNjEiLCJnaXZlbl9uYW1lIjoiSGFkaSIsImZhbWlseV9uYW1lIjoiSGVkYXlhdGkiLCJqdGkiOiJhZDE5YTY4ZS1jNjhhLTRhYTEtOTZmZi1mZGUxMDkxZWI3OTMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJSb2xlIiwiZXhwIjoxNzcwNDcwMTY0LCJpc3MiOiJIYWRpRGlubmVyIiwiYXVkIjoiSGFkaURpbm5lciJ9.atsKcS0dKR4gU6HkD409gVZwB488Ft1SfOOTXh-b4HQ
+@hostId=bce125f1-5243-484b-9079-499161eefaee
+Post http://localhost:5127/hosts/{{hostId}}/menus
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Delicious Menu",
+    "description": "This is a very good menu",
+    "sections": [{
+        "name": "Section 1",
+        "description": "This is Section 1",
+        "items": [{
+            "name" : "Item 1",
+            "description": "This is Item 1"
+        }]
+    }]
+}
+
+###
+
+@hostId=bce125f1-5243-484b-9079-499161eefaee
+@menuId=75A380C6-FB96-4952-8B62-28BEAF87F1D3
+Get http://localhost:5127/hosts/{{hostId}}/menus/{{menuId}}
+Authorization: Bearer {{token}}
+
+###
+
+@hostId=bce125f1-5243-484b-9079-499161eefaee
+Get http://localhost:5127/hosts/{{hostId}}/menus
+Authorization: Bearer {{token}}
