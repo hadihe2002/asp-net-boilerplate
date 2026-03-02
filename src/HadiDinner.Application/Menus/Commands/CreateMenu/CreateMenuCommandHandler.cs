@@ -1,5 +1,6 @@
 using ErrorOr;
 using HadiDinner.Application.Common.Interfaces.Persistence;
+using HadiDinner.Domain.Common.Errors;
 using HadiDinner.Domain.Host.ValueObjects;
 using HadiDinner.Domain.Menu;
 using HadiDinner.Domain.Menu.Entities;
@@ -10,9 +11,11 @@ namespace HadiDinner.Application.Menus.Commands.CreateMenu;
 public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, ErrorOr<Menu>>
 {
     private readonly IMenuRepository _menuRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateMenuCommandHandler(IMenuRepository menuRepository)
+    public CreateMenuCommandHandler(IMenuRepository menuRepository, IUnitOfWork unitOfWork)
     {
+        _unitOfWork = unitOfWork;
         _menuRepository = menuRepository;
     }
 
@@ -21,6 +24,10 @@ public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, Error
         CancellationToken cancellationToken
     )
     {
+        var menuExists = await _menuRepository.ExistsByNameAsync(request.Name);
+        if (menuExists)
+            return Errors.Menu.DuplicateName;
+
         ErrorOr<Menu> menuResult = Menu.Create(
             request.Name,
             request.Description,
@@ -47,6 +54,8 @@ public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, Error
         menu.AddSections(menuSections);
 
         await _menuRepository.AddAsync(menu);
+
+        await _unitOfWork.SaveChangesAsync();
 
         return menu;
     }

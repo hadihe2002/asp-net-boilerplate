@@ -9,11 +9,11 @@ namespace HadiDinner.Infrastructure.Persistence;
 
 public class HadiDinnerDbContext : DbContext
 {
-    private readonly PublishDomainEventsInterceptor _publishDomainEventsInterceptor;
+    private readonly PublishDomainEventsInterceptor? _publishDomainEventsInterceptor;
 
     public HadiDinnerDbContext(
         DbContextOptions<HadiDinnerDbContext> dbContextOptions,
-        PublishDomainEventsInterceptor publishDomainEventsInterceptor
+        PublishDomainEventsInterceptor? publishDomainEventsInterceptor = null
     )
         : base(dbContextOptions)
     {

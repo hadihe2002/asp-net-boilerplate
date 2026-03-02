@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace HadiDinner.Domain.Common.Models;
 
-public abstract class AggregateRoot<TId> : Entity<TId>
+public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
     where TId : notnull
 {
     protected AggregateRoot(TId id)

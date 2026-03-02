@@ -1,12 +1,12 @@
-using System.Text.Json;
 using HadiDinner.Application.Common.Interfaces.Persistence;
 using HadiDinner.Application.Menus.Commands.CreateMenu;
+using HadiDinner.Application.Menus.Queries.GetMenus;
 using HadiDinner.Contracts.Menus;
 using HadiDinner.Domain.Menu;
-using HadiDinner.Infrastructure.Persistence.Repositories;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using QC.Contracts.PaginationContracts;
 
 namespace HadiDinner.Api.Controllers;
 
@@ -52,10 +52,14 @@ public class MenuController : ApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetMenus([FromRoute] string hostId)
+    public async Task<IActionResult> GetMenus([FromQuery] GetMenusRequest request)
     {
-        List<Menu>? menus = await _menuRepository.GetMenus();
+        var query = _mapper.Map<GetMenusQuery>(request);
 
-        return Ok(_mapper.Map<List<MenuResponse>>(menus));
+        var getMenusResult = await _mediator.Send(query);
+
+        var menuResponse = _mapper.Map<PagedResult<MenuResponse>>(getMenusResult);
+
+        return Ok(menuResponse);
     }
 }

@@ -5,17 +5,27 @@ namespace HadiDinner.Api.UnitTests.Menus.Commands.TestUtils;
 
 public class CreateMenuCommandUtils
 {
-    private static HostId _hostId = HostId.Create(Guid.NewGuid());
-    private static string _name = "Menu Name";
-    private static string _description = "Menu Description";
-    private static List<MenuItemCommand> _items =
+    private HostId _hostId = HostId.Create(Guid.NewGuid());
+    private string _name = "Menu Name";
+    private string _description = "Menu Description";
+    private List<MenuItemCommand> _items =
     [
-        new MenuItemCommand("Menu Item Name", "Menu Item Description")
+        new MenuItemCommand("Menu Item Name 1", "Menu Item Description 1")
     ];
-    private static List<MenuSectionCommand> _sections =
+    private List<MenuSectionCommand> _sections =
     [
-        new MenuSectionCommand("Menu Section Name", "Menu Section Description", _items)
+        new MenuSectionCommand(
+            "Menu Section Name 1",
+            "Menu Section Description 1",
+            [new MenuItemCommand("Menu Item Name 1", "Menu Item Description 1")]
+        )
     ];
+
+    public CreateMenuCommandUtils WithMenuSectionCommands(List<MenuSectionCommand> sectionCommands)
+    {
+        _sections = sectionCommands;
+        return this;
+    }
 
     public CreateMenuCommandUtils WithHostId(HostId hostId)
     {
@@ -37,7 +47,39 @@ public class CreateMenuCommandUtils
         return this;
     }
 
-    public CreateMenuCommand Create()
+    public CreateMenuCommandUtils WithMenuSectionCommands(int sectionCount = 1)
+    {
+        _sections.Clear();
+        var sections = Enumerable
+            .Range(0, sectionCount)
+            .Select(
+                index =>
+                    new MenuSectionCommand(
+                        $"Menu Section {index}",
+                        $"Menu Section Description {index}",
+                        _items
+                    )
+            );
+
+        _sections.AddRange(sections);
+
+        return this;
+    }
+
+    public CreateMenuCommandUtils WithMenuItemCommands(int itemCount = 1)
+    {
+        _items.Clear();
+        var items = Enumerable
+            .Range(0, itemCount)
+            .Select(
+                index => new MenuItemCommand($"Menu Item {index}", $"Menu Item Description {index}")
+            );
+        _items.AddRange(items);
+
+        return this;
+    }
+
+    public CreateMenuCommand CreateMenuCommand()
     {
         return new CreateMenuCommand(_hostId.Value.ToString(), _name, _description, _sections);
     }

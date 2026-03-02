@@ -1,1 +1,1 @@
-dotnet watch run --no-hot-reload --project .\src\HadiDinner.Api\
+dotnet watch --no-hot-reload run  --project .\src\HadiDinner.Api\

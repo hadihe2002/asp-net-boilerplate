@@ -1,8 +1,9 @@
 using HadiDinner.Application.Common.Interfaces.Persistence;
 using HadiDinner.Domain.Menu;
-using HadiDinner.Domain.Menu.Entities;
 using HadiDinner.Domain.Menu.ValueObjects;
+using HadiDinner.Infrastructure.Persistence.Pagination;
 using Microsoft.EntityFrameworkCore;
+using QC.Contracts.PaginationContracts;
 
 namespace HadiDinner.Infrastructure.Persistence.Repositories;
 
@@ -18,7 +19,11 @@ public class MenuRepository : IMenuRepository
     public async Task AddAsync(Menu menu)
     {
         _dbContext.Add(menu);
-        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<bool> ExistsByNameAsync(string name)
+    {
+        return await _dbContext.Menus.AnyAsync(m => m.Name == name);
     }
 
     public async Task<Menu?> GetMenuById(string menuId)
@@ -28,8 +33,8 @@ public class MenuRepository : IMenuRepository
         return menu;
     }
 
-    public Task<List<Menu>> GetMenus()
+    public async Task<PagedResult<Menu>> GetMenus(PaginationDto paginationDto)
     {
-        return _dbContext.Menus.ToListAsync();
+        return await _dbContext.Menus.ToPagedResultAsync(paginationDto);
     }
 }

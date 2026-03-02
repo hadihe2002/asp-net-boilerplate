@@ -28,14 +28,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OWU0NGExN
 
 ###
 
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OWU0NGExNy1kMzU1LTRhOTYtOWQ5Yi0yY2JkNjE5MDNmOTgiLCJnaXZlbl9uYW1lIjoiSGFkaSIsImZhbWlseV9uYW1lIjoiSGVkYXlhdGkiLCJqdGkiOiI0NjMxNGE3ZC0xZDMyLTRiZGItOGI3YS1iNWNhOGIxOTVhMTQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJSb2xlIiwiZXhwIjoxNzcyMzI0MTQ1LCJpc3MiOiJIYWRpRGlubmVyIiwiYXVkIjoiSGFkaURpbm5lciJ9.mL4deLi-2OkTYklsG7XNb9qc06RBl3wa_IO0o0bzLKI
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OWU0NGExNy1kMzU1LTRhOTYtOWQ5Yi0yY2JkNjE5MDNmOTgiLCJnaXZlbl9uYW1lIjoiSGFkaSIsImZhbWlseV9uYW1lIjoiSGVkYXlhdGkiLCJqdGkiOiI0YjhiODQ3My00ZWZhLTQzOTctOWQzNi05ZmRiMGMyMmU4ZmEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJSb2xlIiwiZXhwIjoxNzcyNDc5NDgwLCJpc3MiOiJIYWRpRGlubmVyIiwiYXVkIjoiSGFkaURpbm5lciJ9.s4E2823giWlZnR2UKnx4gdQMLUwyiZrkZKzkDH1MubA
 @hostId=bce125f1-5243-484b-9079-499161eefaee
 Post http://localhost:5127/hosts/{{hostId}}/menus
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "Delicious Menu",
+    "name": "Delicious Menu 1",
     "description": "This is a very good menu",
     "sections": [{
         "name": "Section 1",
@@ -57,5 +57,5 @@ Authorization: Bearer {{token}}
 ###
 
 @hostId=bce125f1-5243-484b-9079-499161eefaee
-Get http://localhost:5127/hosts/{{hostId}}/menus
+Get http://localhost:5127/hosts/{{hostId}}/menus?limit=2&page=1
 Authorization: Bearer {{token}}

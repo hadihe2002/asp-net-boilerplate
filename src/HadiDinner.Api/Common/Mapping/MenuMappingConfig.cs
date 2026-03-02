@@ -1,4 +1,5 @@
 using HadiDinner.Application.Menus.Commands.CreateMenu;
+using HadiDinner.Application.Menus.Queries.GetMenus;
 using HadiDinner.Contracts.Menus;
 using HadiDinner.Domain.Menu;
 using Mapster;
@@ -15,6 +16,8 @@ public class MenuMappingConfig : IRegister
             .NewConfig<(CreateMenuRequest Request, string HostId), CreateMenuCommand>()
             .Map(dest => dest.HostId, src => src.HostId)
             .Map(dest => dest, src => src.Request);
+
+        config.NewConfig<GetMenusRequest, GetMenusQuery>();
 
         config
             .NewConfig<Menu, MenuResponse>()

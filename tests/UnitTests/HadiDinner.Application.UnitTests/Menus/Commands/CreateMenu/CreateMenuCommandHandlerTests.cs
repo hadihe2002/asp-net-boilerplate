@@ -3,11 +3,13 @@ using HadiDinner.Api.UnitTests.Menus.Commands.TestUtils;
 using HadiDinner.Application.Common.Interfaces.Persistence;
 using HadiDinner.Application.Menus.Commands.CreateMenu;
 using HadiDinner.Application.UnitTests.Menus;
+using HadiDinner.Domain.Common.Errors;
 using Moq;
+using UnitTests.Database;
 
 namespace HadiDinner.Api.UnitTests.Menus.Commands.CreateMenu;
 
-public class CreateMenuCommandHandlerTests
+public class CreateMenuCommandHandlerTests : EFInMemoryDatabase
 {
     public int T1_T2_T3;
 
@@ -22,11 +24,12 @@ public class CreateMenuCommandHandlerTests
 
     [Theory]
     [MemberData(nameof(ValidCreateMenuCommands))]
-    public async Task HandleCreateMenuCommand_WhenMenuIsValid_ShouldCreateAndReturnMenu()
+    public async Task HandleCreateMenuCommand_WhenMenuIsValid_ShouldCreateAndReturnMenu(
+        CreateMenuCommand createMenuCommand
+    )
     {
         /* --------------------------------- Arrange -------------------------------- */
-        //  Get Hold of a valid Menu
-        var createMenuCommand = new CreateMenuCommandUtils().Create();
+
 
         /* ----------------------------------- Act ---------------------------------- */
         // Invoke the handler
@@ -40,13 +43,41 @@ public class CreateMenuCommandHandlerTests
 
         var menu = result.Value;
         menu.ValidateCreatedFrom(createMenuCommand);
-        _mockMenuRepository.Verify(m => m.AddAsync(menu), Times.Once);
+        _mockMenuRepository.Verify(r => r.AddAsync(menu), Times.Once);
+
+        return;
+    }
+
+    [Fact]
+    public async Task HandleCreateMenuCommand_WhenThereAlreadyExistsMenuWithSameName_ReturnDuplicateNameError()
+    {
+        var createMenuCommand = new CreateMenuCommandUtils().CreateMenuCommand();
+
+        _mockMenuRepository.Setup(x => x.ExistsByNameAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+        var result = await _handler.Handle(createMenuCommand, default);
+
+        result.IsError.Should().BeTrue();
+
+        result.FirstError.Should().Be(Errors.Menu.DuplicateName);
 
         return;
     }
 
     public static IEnumerable<object[]> ValidCreateMenuCommands()
     {
-        throw new NotImplementedException();
+        yield return new[] { new CreateMenuCommandUtils().CreateMenuCommand() };
+        yield return new[]
+        {
+            new CreateMenuCommandUtils().WithMenuSectionCommands(3).CreateMenuCommand()
+        };
+
+        yield return new[]
+        {
+            new CreateMenuCommandUtils()
+                .WithMenuItemCommands(4)
+                .WithMenuSectionCommands(2)
+                .CreateMenuCommand()
+        };
     }
 }
