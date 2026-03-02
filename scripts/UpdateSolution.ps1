@@ -1,0 +1,1 @@
+dotnet sln HadiDinner.slnx add (ls -r *.csproj)

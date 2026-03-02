@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/HadiDinner.Api/HadiDinner.Api.csproj" />
+    <Project Path="src/HadiDinner.Application/HadiDinner.Application.csproj" />
+    <Project Path="src/HadiDinner.Contracts/HadiDinner.Contracts.csproj" />
+    <Project Path="src/HadiDinner.Domain/HadiDinner.Domain.csproj" />
+    <Project Path="src/HadiDinner.Infrastructure/HadiDinner.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/UnitTests/">
+    <Project Path="tests/UnitTests/HadiDinner.Api.UnitTests/HadiDinner.Api.UnitTests.csproj" />
+    <Project Path="tests/UnitTests/HadiDinner.Application.UnitTests/HadiDinner.Application.UnitTests.csproj" />
+    <Project Path="tests/UnitTests/HadiDinner.Domain.UnitTests/HadiDinner.Domain.UnitTests.csproj" />
+    <Project Path="tests/UnitTests/HadiDinner.Infrastructure.UnitTests/HadiDinner.Infrastructure.UnitTests.csproj" />
+  </Folder>
+  <Project Path="TestConsole/TestConsole.csproj" />
+</Solution>

@@ -1,0 +1,61 @@
+
+Post http://localhost:5127/auth/register
+Content-Type: application/json
+
+{
+    "firstName": "Hadi",
+    "lastName": "Hedayati",
+    "email": "hadihe2002@gmail.com",
+    "password": "Mypassword"
+}
+
+
+###
+
+Post http://localhost:5127/auth/login
+Content-Type: application/json
+
+{
+    "email": "hadihe2002@gmail.com",
+    "password": "Mypassword"
+}
+
+###
+
+Get http://localhost:5127/dinners
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OWU0NGExNy1kMzU1LTRhOTYtOWQ5Yi0yY2JkNjE5MDNmOTgiLCJnaXZlbl9uYW1lIjoiSGFkaSIsImZhbWlseV9uYW1lIjoiSGVkYXlhdGkiLCJqdGkiOiJiNjkyMWVlOS1lZThlLTRkYjEtOTVhZi1mM2FkYTI2MGZmMjMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJSb2xlIiwiZXhwIjoxNzcyMTU1OTEzLCJpc3MiOiJIYWRpRGlubmVyIiwiYXVkIjoiSGFkaURpbm5lciJ9.j3gRLU2gX1iFz_4wlmy82y08TPaTNNIVSptfjRuDUQ4
+
+
+###
+
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OWU0NGExNy1kMzU1LTRhOTYtOWQ5Yi0yY2JkNjE5MDNmOTgiLCJnaXZlbl9uYW1lIjoiSGFkaSIsImZhbWlseV9uYW1lIjoiSGVkYXlhdGkiLCJqdGkiOiI0NjMxNGE3ZC0xZDMyLTRiZGItOGI3YS1iNWNhOGIxOTVhMTQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJSb2xlIiwiZXhwIjoxNzcyMzI0MTQ1LCJpc3MiOiJIYWRpRGlubmVyIiwiYXVkIjoiSGFkaURpbm5lciJ9.mL4deLi-2OkTYklsG7XNb9qc06RBl3wa_IO0o0bzLKI
+@hostId=bce125f1-5243-484b-9079-499161eefaee
+Post http://localhost:5127/hosts/{{hostId}}/menus
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Delicious Menu",
+    "description": "This is a very good menu",
+    "sections": [{
+        "name": "Section 1",
+        "description": "This is Section 1",
+        "items": [{
+            "name" : "Item 1",
+            "description": "This is Item 1"
+        }]
+    }]
+}
+
+###
+
+@hostId=bce125f1-5243-484b-9079-499161eefaee
+@menuId=821ff6d4-35f2-4eec-a06c-a6930dc4b332
+Get http://localhost:5127/hosts/{{hostId}}/menus/{{menuId}}
+Authorization: Bearer {{token}}
+
+###
+
+@hostId=bce125f1-5243-484b-9079-499161eefaee
+Get http://localhost:5127/hosts/{{hostId}}/menus
+Authorization: Bearer {{token}}

@@ -1,0 +1,1 @@
+dotnet new sln --format slnx -n HadiDinner
